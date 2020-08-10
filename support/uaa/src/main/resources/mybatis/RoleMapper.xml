@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxyt.normae.uaa.dao.RoleDao">
+
+    <select id="selectRoleList" parameterType="com.galaxyt.normae.uaa.pojo.dto.RoleQueryDto" resultType="com.galaxyt.normae.uaa.pojo.vo.RoleVo">
+        SELECT
+            a.id,
+            a.app,
+            a.name,
+            a.mark,
+            a.description,
+            a.create_time,
+            a.update_time,
+            a.create_user_id,
+            a.update_user_id,
+            a.disabled
+        FROM
+            t_role a
+        WHERE 1=1
+        <if test="queryDto.app != null and queryDto.app != ''">
+            AND a.app = #{queryDto.app}
+        </if>
+        <if test="queryDto.name != null and queryDto.name != ''">
+            AND a.name LIKE concat('%', #{queryDto.name}, '%')
+        </if>
+        <if test="queryDto.description != null and queryDto.description != ''">
+            AND a.description LIKE concat('%', #{queryDto.description}, '%')
+        </if>
+        ORDER BY a.id DESC
+    </select>
+
+</mapper> 

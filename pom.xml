@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <modules>
+        <module>component</module>
+        <module>governance</module>
+        <module>support</module>
+        <module>feign</module>
+    </modules>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.12.RELEASE</version>
+    </parent>
+
+    <groupId>com.galaxyt</groupId>
+    <artifactId>normae</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>normae</name>
+    <url>http://normae.galaxy-t.com</url>
+    <description>Spring Cloud微服务架构脚手架</description>
+
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <java.version>8</java.version>
+
+        <spring-cloud.version>Greenwich.SR4</spring-cloud.version>
+
+        <jdbc-mysql.version>8.0.11</jdbc-mysql.version>
+        <druid.version>1.1.21</druid.version>
+        <mybatis-plus.version>3.2.0</mybatis-plus.version>
+
+        <httpclient.version>4.5.11</httpclient.version>
+
+        <jedis.version>3.0.1</jedis.version>
+
+        <jwt.version>0.7.0</jwt.version>
+
+        <lombok.version>1.18.8</lombok.version>
+
+        <gson.version>2.6.2</gson.version>
+
+        <guava.version>29.0-jre</guava.version>
+
+        <hutool.version>5.1.2</hutool.version>
+
+        <swagger.version>2.9.2</swagger.version>
+    </properties>
+
+
+    <dependencies>
+
+        <!-- Lombok begin -->
+        <!-- 全局代码均依赖 lombok 极简开发 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Lombok end -->
+
+        <!-- Guava begin -->
+        <!-- 全局所需工具类请尽可能的使用 guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+
+        <!-- Guava begin -->
+
+        <!-- HuTool start -->
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
+
+        <!-- HuTool end -->
+
+
+    </dependencies>
+
+    <dependencyManagement>
+
+        <dependencies>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+
+            <!-- MySql start -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${jdbc-mysql.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+
+            <!-- MySql end -->
+
+            <!-- 数据库连接池 start -->
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+            <!-- 数据库连接池 start -->
+
+            <!-- MyBatis start -->
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <!-- MyBatis end -->
+
+            <!-- ShardingJDBC start -->
+
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+                <version>4.0.0-RC1</version>
+            </dependency>
+
+            <!-- ShardingJDBC end -->
+
+
+            <!-- Jedis begin -->
+
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>${jedis.version}</version>
+            </dependency>
+
+            <!-- Jedis end -->
+
+
+            <!-- Kafka begin -->
+
+            <!--<dependency>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka</artifactId>
+                <version>${spring-kafka.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.kafka</groupId>
+                        <artifactId>kafka-clients</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${kafka.version}</version>
+            </dependency>-->
+
+            <!-- Kafka end-->
+
+            <!-- HttpClient start -->
+            <!-- 使用 org.apache.httpcomponents 而不是 commons-httpclient，commons-httpclient是一个HttpClient老版本的项目，到3.1版本为止，此后项目被废弃不再更新（3.1版本，07年8.21发布），它已经被归入了一个更大的Apache HttpComponents项目中，这个项目版本号是HttpClient 4.x（4.5.8最新版本，19年5.30发布）。 -->
+
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+
+            <!-- HttpClient start -->
+
+
+            <!-- JWT begin -->
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+
+            <!-- JWT end -->
+
+
+
+            <!-- JSON start -->
+
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
+            </dependency>
+
+            <!-- JSON end -->
+
+            <!-- Swagger start -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <!-- Swagger end -->
+
+        </dependencies>
+
+    </dependencyManagement>
+
+    <profiles>
+        <profile>
+            <id>active</id>
+            <properties>
+                <profileActive>dev</profileActive>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
+
+
+
+</project>

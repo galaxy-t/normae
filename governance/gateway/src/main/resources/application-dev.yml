@@ -1,0 +1,88 @@
+server.port: 8080
+
+# TOKEN 自定义信息
+jwt:
+  key: Authorization
+  sign: normae
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          # 表明gateway开启服务注册和发现的功能，并且spring cloud gateway自动根据服务发现为每一个服务创建了一个router，
+          # 这个router将以服务名开头的请求路径转发到对应的服务
+          # 此处设置为 false 表示不需要其自动匹配 ，将会手动使用 predicates 来进行路由匹配
+          enabled: false
+          # 将请求路径上的服务名配置为小写（因为服务注册的时候，向注册中心注册时将服务名转成大写的了），
+          # 比如以/service-hi/*的请求路径被路由转发到服务名为service-hi的服务上。
+          lowerCaseServiceId: true
+      routes:
+        # 短信模块
+        - id: sms
+          uri: lb://sms
+          order: 0
+          predicates:
+            - Path=/sms/**
+          filters:
+            - StripPrefix=1
+        # 文件模块
+        - id: file
+          uri: lb://file
+          order: 0
+          predicates:
+            - Path=/file/**
+          filters:
+            - StripPrefix=1
+        # uaa模块
+        - id: uaa
+          uri: lb://uaa
+          order: 0
+          predicates:
+            - Path=/uaa/**
+          filters:
+            - StripPrefix=1
+        # 院士港user模块
+        - id: iap2-user
+          uri: lb://iap2-user
+          order: 0
+          predicates:
+            - Path=/iap2-user/**
+          filters:
+            - StripPrefix=1
+        # 院士港chart模块
+        - id: iap2-chart
+          uri: lb://iap2-chart
+          order: 0
+          predicates:
+            - Path=/iap2-chart/**
+          filters:
+            - StripPrefix=1
+        # 院士港utils模块
+        - id: iap2-utils
+          uri: lb://iap2-utils
+          order: 0
+          predicates:
+            - Path=/iap2-utils/**
+          filters:
+            - StripPrefix=1
+        # 院士港academician模块
+        - id: iap2-academician
+          uri: lb://iap2-academician
+          order: 0
+          predicates:
+            - Path=/iap2-academician/**
+          filters:
+            - StripPrefix=1
+
+eureka:
+  instance:
+    appname: ${spring.application.name}
+    preferIpAddress: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+  client:
+    registry-fetch-interval-seconds: 1  #Eureka客户端刷新本地缓存时间
+    service-url:
+      defaultZone: http://normae:normae@localhost:8081/eureka
