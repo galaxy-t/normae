@@ -31,16 +31,7 @@ public interface FileClient {
      * @param file
      * @return
      */
-//    @PostMapping("/upload")
     @PostMapping(value = "/upload", headers = "content-type=multipart/form-data")
     GlobalResponseWrapper upload(@RequestPart("file") MultipartFile file);
 
-    /**
-     * 下载文件
-     *
-     * @param fileUrl 文件路径
-     * @return ResponseEntity<byte [ ]>
-     */
-    @PostMapping(value = "/upload/download")
-    ResponseEntity<byte[]> download(@RequestParam("fileUrl") String fileUrl);
 }

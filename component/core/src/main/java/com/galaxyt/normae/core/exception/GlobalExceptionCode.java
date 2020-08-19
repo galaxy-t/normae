@@ -27,6 +27,8 @@ public enum GlobalExceptionCode {
 
     MD5_ERROR(8, "MD5 Error"),
 
+    FILE_UPLOAD_ERROR(9, "文件上传失败"),
+
     ACCOUNT_IS_DISABLED(1001, "帐号已被禁用"),
     USERNAME_IS_NOT_FOUNT(1002, "帐号不存在"),
     PASSWORD_IS_WRONG(1003, "密码输入错误"),
