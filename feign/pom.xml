@@ -14,7 +14,6 @@
     <packaging>pom</packaging>
     <version>1.0.0</version>
     <modules>
-        <module>api-uaa</module>
         <module>api-sms</module>
         <module>api-file</module>
     </modules>
