@@ -110,9 +110,8 @@ public class JedisLock {
         if (this.locked) {
             this.jedis.del(this.lockKey);
             this.locked = false;
-            this.jedis.close();
         }
-
+        this.jedis.close();
     }
 
 
