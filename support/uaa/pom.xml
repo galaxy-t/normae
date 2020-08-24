@@ -14,21 +14,12 @@
     <version>1.0.0</version>
 
     <dependencies>
-
         <dependency>
             <groupId>com.galaxyt.normae</groupId>
             <artifactId>web</artifactId>
             <version>1.0.0</version>
         </dependency>
-
-        <dependency>
-            <groupId>com.galaxyt.normae</groupId>
-            <artifactId>api-uaa</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
     </dependencies>
-
 
     <build>
         <plugins>

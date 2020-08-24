@@ -8,15 +8,11 @@ import lombok.Data;
 
 /**
  * 角色权限关系表
- *
  * @author zhouqi
+ * @date 2020/8/24 13:39
  * @version v1.0.0
- * @date 2020/5/20 10:19
- * @Description //
- * Modification History:
- * Date                 Author          Version          Description
- * ---------------------------------------------------------------------------------*
- * 2020/5/20 10:19     zhouqi          v1.0.0           Created
+ * @Description
+ *
  */
 @Data
 @TableName("t_role_authority")

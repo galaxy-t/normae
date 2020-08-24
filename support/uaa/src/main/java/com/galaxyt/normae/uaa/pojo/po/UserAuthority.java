@@ -7,16 +7,17 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 /**
- * 用户角色关联表
+ * 用户权限表
+ * 为用户添加除角色以外的其它权限
  * @author zhouqi
- * @date 2020/8/24 13:40
+ * @date 2020/8/24 11:50
  * @version v1.0.0
  * @Description
  *
  */
 @Data
-@TableName("t_user_role")
-public class UserRole {
+@TableName("t_user_authority")
+public class UserAuthority {
 
     @TableId(value = "id", type = IdType.ID_WORKER)
     private Long id;
@@ -28,9 +29,9 @@ public class UserRole {
     private Long userId;
 
     /**
-     * 角色 id
+     * 权限 id
      */
-    @TableField("role_id")
-    private Long roleId;
+    @TableField("authority_id")
+    private Long authorityId;
 
 }
