@@ -34,15 +34,15 @@ public enum JWTUtil {
     /**
      * 存放在 body 中的 角色集合 的 key
      */
-    private static final String ROLES = "roles";
+    public static final String ROLE = "role";
 
     /**
      * 存放在 body 中的 权限集合 的 key
      */
-    private static final String AUTHORITIES = "authorities";
+    public static final String AUTHORITY = "authority";
 
 
-    public String generate(String userId, String username, List<String> roles, List<String> authorities,
+    public String generate(String userId, String username, List<String> role, List<String> authority,
                            String subject, String sign, Long exp) {
 
         Date now = new Date();
@@ -51,8 +51,8 @@ public enum JWTUtil {
         Map<String, Object> claims = new HashMap<>();
         claims.put(USER_ID, userId);
         claims.put(USERNAME, username);
-        claims.put(ROLES, roles);
-        claims.put(AUTHORITIES, authorities);
+        claims.put(ROLE, role);
+        claims.put(AUTHORITY, authority);
 
         return Jwts.builder()
                 .setClaims(claims)
@@ -151,14 +151,13 @@ public enum JWTUtil {
             return String.valueOf(this.body.get(USERNAME));
         }
 
-        public List<String> getRoles() {
-            return (List<String>) this.body.get(ROLES);
+        public List<String> getRole() {
+            return (List<String>) this.body.get(ROLE);
         }
 
-        public List<String> getAuthorities() {
-            return (List<String>) this.body.get(AUTHORITIES);
+        public List<String> getAuthority() {
+            return (List<String>) this.body.get(AUTHORITY);
         }
-
 
 
         @Override
