@@ -44,38 +44,6 @@ spring:
             - Path=/uaa/**
           filters:
             - StripPrefix=1
-        # 院士港user模块
-        - id: iap2-user
-          uri: lb://iap2-user
-          order: 0
-          predicates:
-            - Path=/iap2-user/**
-          filters:
-            - StripPrefix=1
-        # 院士港chart模块
-        - id: iap2-chart
-          uri: lb://iap2-chart
-          order: 0
-          predicates:
-            - Path=/iap2-chart/**
-          filters:
-            - StripPrefix=1
-        # 院士港utils模块
-        - id: iap2-utils
-          uri: lb://iap2-utils
-          order: 0
-          predicates:
-            - Path=/iap2-utils/**
-          filters:
-            - StripPrefix=1
-        # 院士港academician模块
-        - id: iap2-academician
-          uri: lb://iap2-academician
-          order: 0
-          predicates:
-            - Path=/iap2-academician/**
-          filters:
-            - StripPrefix=1
 
 eureka:
   instance:
