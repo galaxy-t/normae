@@ -42,7 +42,9 @@ public class UploadController {
     @PostMapping
     public GlobalResponseWrapper upload(@RequestPart("file") MultipartFile file) {
 
+        log.debug("文件上传 start [{}]", file.getOriginalFilename());
         FileVo fileVo = this.minIOService.upload(file);
+        log.debug("文件上传 end [{}]", fileVo.toString());
 
         if (fileVo != null) {
             return new GlobalResponseWrapper().data(fileVo);

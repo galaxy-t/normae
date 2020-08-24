@@ -4,6 +4,7 @@ import com.galaxyt.normae.api.file.vo.FileVo;
 import io.minio.MinioClient;
 import io.minio.ObjectWriteResponse;
 import io.minio.PutObjectArgs;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +24,7 @@ import java.util.UUID;
  * 2020/8/19 16:04     zhouqi          v1.0.0           Created
  *
  */
+@Slf4j
 @Service
 public class MinIOService {
 
@@ -73,25 +75,20 @@ public class MinIOService {
         vo.setExtensionName(extensionName);
         vo.setUrl(url);
 
+        log.debug("即将开始上传文件[{}]", vo.toString());
+
         try {
             ObjectWriteResponse response = minioClient.putObject(PutObjectArgs.builder().bucket(this.bucketName)
                     .object(fileName)
                     .stream(file.getInputStream(), file.getInputStream().available(), -1)
                     .build());
+            log.debug("文件上传结束 , 文件服务器响应结果[{}]", response.toString());
             return vo;
         } catch (Exception e) {
+            log.error("文件上传失败[{}][{}]", vo.toString(), e.getMessage());
             e.printStackTrace();
         }
-
         return null;
     }
-
-
-
-
-
-
-
-
 
 }
