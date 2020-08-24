@@ -1,19 +1,15 @@
 package com.galaxyt.normae.core.enums;
 
+
 /**
  * 删除状态
  * 仅作为删除状态 0 和 1 取值使用 , 不可被作为属性类型能使用
  * 代码中如果需要传递或者判断删除状态必须使用该枚举
  * 如: Deleted.TRUE.getCode()    只能这样写 , 不可以直接写 1
  * @author zhouqi
- * @date 2020/5/20 10:52
+ * @date 2020/8/24 13:45
  * @version v1.0.0
  * @Description
- *
- * Modification History:
- * Date                 Author          Version          Description
----------------------------------------------------------------------------------*
- * 2020/5/20 10:52     zhouqi          v1.0.0           Created
  *
  */
 public enum Deleted {

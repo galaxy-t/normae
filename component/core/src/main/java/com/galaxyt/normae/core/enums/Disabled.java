@@ -1,27 +1,19 @@
-package com.galaxyt.normae.uaa.enums;
+package com.galaxyt.normae.core.enums;
 
-import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.galaxyt.normae.core.exception.GlobalException;
 import com.galaxyt.normae.core.exception.GlobalExceptionCode;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 禁用状态
- *
  * @author zhouqi
+ * @date 2020/8/24 13:34
  * @version v1.0.0
- * @date 2020/5/20 10:53
- * @Description //
- * Modification History:
- * Date                 Author          Version          Description
- * ---------------------------------------------------------------------------------*
- * 2020/5/20 10:53     zhouqi          v1.0.0           Created
+ * @Description
+ *
  */
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
-@ApiModel(description = "禁用状态")
 public enum Disabled {
 
     TRUE(1, "已禁用"),
@@ -32,14 +24,11 @@ public enum Disabled {
     /**
      * 代码
      */
-    @EnumValue
-    @ApiModelProperty("代码")
     private final int code;
 
     /**
      * 内容
      */
-    @ApiModelProperty("内容")
     private final String msg;
 
 
