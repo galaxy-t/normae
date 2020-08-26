@@ -34,17 +34,18 @@ public @interface Authority {
      * role 和 authority 具有同等效力 , 只要用户符合 role 或 authority 中的一个条件即可
      * @return
      */
-    String role();
+    String role() default "";
 
     /**
      * 所需要的权限
      * 以英文逗号分隔
      * 用于标识拥有哪些权限才可以访问该接口
-     *
+     * <p>
      * authority 和 role 具有同等效力 , 只要用户符合 authority 或 role 中的一个条件即可
+     *
      * @return
      */
-    String authority();
+    String authority() default "";
 
     /**
      * 描述信息
