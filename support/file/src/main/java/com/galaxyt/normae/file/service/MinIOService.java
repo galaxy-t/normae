@@ -32,28 +32,17 @@ public class MinIOService {
     @Value("${minio.endpoint}")
     private String endpoint;
 
-    @Value("${minio.username}")
-    private String username;
-
-    @Value("${minio.password}")
-    private String password;
-
     @Value("${minio.bucket-name}")
     private String bucketName;
 
 
     private MinioClient minioClient;
 
-    public MinIOService() {
-        this.minioClient = MinioClient.builder().endpoint(this.endpoint).credentials(this.username, this.password).build();
-    }
+    public MinIOService(@Value("${minio.endpoint}") String endpoint,
+                        @Value("${minio.username}") String username,
+                        @Value("${minio.password}") String password) {
 
-    public static void main(String[] args) {
-        String a = "abcd.txt";
-
-        String b = a.substring(a.lastIndexOf("."));
-
-        System.out.println(b);
+        this.minioClient = MinioClient.builder().endpoint(endpoint).credentials(username, password).build();
     }
 
     /**
@@ -66,7 +55,7 @@ public class MinIOService {
         //文件服务器地址
         String domain = String.format("%s/%s", this.endpoint, this.bucketName);
         //生成一个新的 uuid
-        String uuid = UUID.randomUUID().toString();
+        String uuid = UUID.randomUUID().toString().replace("-", "");
         //文件的原始名称
         String originalFilename = file.getOriginalFilename();
         //文件扩展名
@@ -89,6 +78,7 @@ public class MinIOService {
             ObjectWriteResponse response = minioClient.putObject(PutObjectArgs.builder().bucket(this.bucketName)
                     .object(fileName)
                     .stream(file.getInputStream(), file.getInputStream().available(), -1)
+                    .contentType(file.getContentType())
                     .build());
             log.debug("文件上传结束 , 文件服务器响应结果[{}]", response.toString());
             return vo;
