@@ -70,7 +70,6 @@ public class CaptchaController {
      * @return
      */
     @NotWrapper
-    @Authority(isLogin = false, description = "短信验证码校验")
     @GetMapping("check")
     public boolean check(@RequestParam("phoneNumber") String phoneNumber,
                          @RequestParam("captcha") String captcha,
