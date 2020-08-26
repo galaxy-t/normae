@@ -45,7 +45,7 @@ public class CaptchaController {
      * @param captchaType 短信类型 1登录 2注册 3重置
      * @param phoneNumber 手机号码
      */
-    @Authority(role = "", authority = "", isLogin = false, description = "")
+    @Authority(isLogin = false, description = "短信验证码发送")
     @GetMapping("send")
     public GlobalResponseWrapper send(@NotBlank(message = "手机号码不能为空") @RequestParam("phoneNumber") String phoneNumber,
                                       @NotNull(message = "短信类型不能为空") @RequestParam("captchaType") Integer captchaType) {
@@ -70,12 +70,13 @@ public class CaptchaController {
      * @return
      */
     @NotWrapper
+    @Authority(isLogin = false, description = "短信验证码校验")
     @GetMapping("check")
     public boolean check(@RequestParam("phoneNumber") String phoneNumber,
                          @RequestParam("captcha") String captcha,
-                         @RequestParam("captchaType") CaptchaType captchaType) {
+                         @RequestParam("captchaType") Integer captchaType) {
 
-        return this.captchaService.check(phoneNumber, captcha, MessageType.getByCode(captchaType.getCode()));
+        return this.captchaService.check(phoneNumber, captcha, MessageType.getByCode(CaptchaType.getByCode(captchaType).getCode()));
     }
 
 
