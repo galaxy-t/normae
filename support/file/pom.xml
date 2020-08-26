@@ -23,12 +23,6 @@
 
         <dependency>
             <groupId>com.galaxyt.normae</groupId>
-            <artifactId>api-file</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.galaxyt.normae</groupId>
             <artifactId>security-provider</artifactId>
             <version>1.0.0</version>
         </dependency>

@@ -1,7 +1,9 @@
 package com.galaxyt.normae.security.provider;
 
 import com.galaxyt.normae.core.annotation.NotWrapper;
+import com.galaxyt.normae.core.util.json.GsonUtil;
 import com.galaxyt.normae.security.core.AuthorityWrapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,7 @@ import java.util.List;
  * 2020/6/9 17:06     zhouqi          v1.0.0           Created
  *
  */
+@Slf4j
 @RestController
 @RequestMapping("/endpoint/authority")
 public class AuthorityEndpoint {
@@ -37,6 +40,7 @@ public class AuthorityEndpoint {
     @GetMapping
     public List<AuthorityWrapper> notifications() {
         List<AuthorityWrapper> collection = this.requestMappingProcessor.findAll();
+        log.debug("被拉取到的接口[{}}]", GsonUtil.getJson(collection));
         return collection;
     }
 

@@ -7,7 +7,6 @@
         <module>component</module>
         <module>governance</module>
         <module>support</module>
-        <module>feign</module>
     </modules>
 
     <parent>
@@ -43,7 +42,7 @@
 
         <jwt.version>0.7.0</jwt.version>
 
-        <lombok.version>1.18.8</lombok.version>
+        <lombok.version>1.18.12</lombok.version>
 
         <gson.version>2.6.2</gson.version>
 

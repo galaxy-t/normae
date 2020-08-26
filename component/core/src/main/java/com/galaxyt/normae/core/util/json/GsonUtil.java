@@ -40,6 +40,7 @@ public class GsonUtil {
 
 
     /**
+     * TODO
      * 将一个JSON字符串转换成一个对象,需要注意json字符串中不能有时间格式属性（Gson对时间格式缺省情况下支持的不多），若有时间类型的属性，需要使用getObject(String json, Class c, String pattern)
      * @param json  要转换的JSON字符串
      * @param c     转换类型
@@ -50,6 +51,7 @@ public class GsonUtil {
     }
 
     /**
+     * TODO
      * 将一个JSON字符串转换成一个对象，并按照对应的时间格式对时间类型的属性进行格式化
      * @param json      要转换的JSON字符串
      * @param c         转换类型

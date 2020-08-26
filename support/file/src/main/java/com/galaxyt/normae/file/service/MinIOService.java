@@ -1,6 +1,6 @@
 package com.galaxyt.normae.file.service;
 
-import com.galaxyt.normae.api.file.vo.FileVo;
+import com.galaxyt.normae.file.pojo.vo.FileVo;
 import io.minio.MinioClient;
 import io.minio.ObjectWriteResponse;
 import io.minio.PutObjectArgs;
@@ -46,6 +46,14 @@ public class MinIOService {
 
     public MinIOService() {
         this.minioClient = MinioClient.builder().endpoint(this.endpoint).credentials(this.username, this.password).build();
+    }
+
+    public static void main(String[] args) {
+        String a = "abcd.txt";
+
+        String b = a.substring(a.lastIndexOf("."));
+
+        System.out.println(b);
     }
 
     /**

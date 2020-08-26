@@ -15,9 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationAdapter;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
-import java.util.Optional;
-import java.util.function.Supplier;
-
 /**
  * 短信验证码 service
  * @author zhouqi

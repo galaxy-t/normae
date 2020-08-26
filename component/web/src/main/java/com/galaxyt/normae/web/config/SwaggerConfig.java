@@ -1,18 +1,17 @@
 package com.galaxyt.normae.web.config;
 
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.*;
+import springfox.documentation.schema.ModelRef;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -20,67 +19,49 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * swagger 配置
- *
- * @author jiangxd
+ * Swagger2 配置类
+ * @author zhouqi
+ * @date 2020/8/25 16:10
  * @version v1.0.0
- * @date 2020/7/13 9:17
- * @Description //
- * Modification History:
- * Date                 Author          Version          Description
- * ---------------------------------------------------------------------------------*
- * 2020/7/13 9:17     jiangxd          v1.0.0           Created
+ * @Description
+ *
  */
-@Configuration
-@EnableWebMvc
 @EnableSwagger2
-public class SwaggerConfig implements WebMvcConfigurer {
+@Configuration
+public class SwaggerConfig {
 
     @Value("${spring.application.name}")
     private String appName;
 
+    /**
+     * Swagger2 配置
+     * @return
+     */
     @Bean
-    public Docket swaggerSpringMvcPlugin() {
+    public Docket customDocket() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
+                .apiInfo(this.apiInfo())
                 .select()
-//                .apis(RequestHandlerSelectors.basePackage("com.galaxyt.normae"))
-                .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
+                .apis(RequestHandlerSelectors.basePackage("com.galaxyt.normae"))
                 .paths(PathSelectors.any())
                 .build()
-                .securitySchemes(securitySchemes())
-                .securityContexts(securityContexts());
+                .globalOperationParameters(this.globalOperation());
+
     }
 
-    private List<ApiKey> securitySchemes() {
-        List<ApiKey> apiKeyList = new ArrayList<ApiKey>();
-        apiKeyList.add(new ApiKey("Authorization", "Authorization", "header"));
-        return apiKeyList;
-    }
+    private List<Parameter> globalOperation(){
+        //添加head参数配置start
+        ParameterBuilder tokenPar = new ParameterBuilder();
+        List<Parameter> pars = new ArrayList<>();
+        //第一个Authorization为传参的key，第二个Authorization为swagger页面显示的值
+        tokenPar.name("Authorization").description("Authorization").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
+        pars.add(tokenPar.build());
 
-    private List<SecurityContext> securityContexts() {
-        List<SecurityContext> securityContexts = new ArrayList<>();
-        securityContexts.add(
-                SecurityContext.builder()
-                        .securityReferences(defaultAuth())
-                        .forPaths(PathSelectors.regex("^(?!auth).*$"))
-                        .build());
-        return securityContexts;
-    }
-
-    List<SecurityReference> defaultAuth() {
-        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
-        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-        authorizationScopes[0] = authorizationScope;
-        List<SecurityReference> securityReferences = new ArrayList<>();
-        securityReferences.add(new SecurityReference("Authorization", authorizationScopes));
-        return securityReferences;
+        return pars;
     }
 
     /**
-     * 创建该API的基本信息（这些基本信息会展现在文档页面中）
-     * 访问地址：http://项目实际地址/swagger-ui.html
-     *
+     * 设置基础信息
      * @return
      */
     private ApiInfo apiInfo() {
@@ -92,20 +73,4 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 .build();
     }
 
-    /**
-     * 静态资源配置
-     *
-     * @return
-     */
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/static/");
-
-        registry.addResourceHandler("swagger-ui.html")
-                .addResourceLocations("classpath:/META-INF/resources/");
-
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
-    }
 }

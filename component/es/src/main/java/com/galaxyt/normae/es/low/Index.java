@@ -1,9 +1,6 @@
 package com.galaxyt.normae.es.low;
 
-import com.galaxyt.normae.core.util.json.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.Map;
 
 /**
  *
@@ -73,26 +70,6 @@ public class Index {
         });
     }
 
-
-    public static void main(String[] args) {
-        String s = "{\n" +
-                "\"_index\": \"test_index3\",\n" +
-                "\t\"_type\": \"_doc\",\n" +
-                "\t\"_id\": \"222\",\n" +
-                "\t\"_version\": 1,\n" +
-                "\t\"_seq_no\": 0,\n" +
-                "\t\"_primary_term\": 1,\n" +
-                "\t\"found\": true,\n" +
-                "\t\"_source\": {\n" +
-                "\t\t\"name\": 222\n" +
-                "\t}\n" +
-                "}";
-
-        Map<String, String> map = (Map<String, String>) GsonUtil.getObject(s, Map.class);
-
-        System.out.println(map.get("_source"));
-
-    }
 
 
 }

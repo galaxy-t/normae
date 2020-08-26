@@ -30,14 +30,19 @@ public class AuthorityWrapper {
     private String method;
 
     /**
-     * 权限标识 , 若两个权限同时拥有一个接口则以逗号分隔
+     * 访问该接口所需要的角色
      */
-    private String mark;
+    private String role;
+
+    /**
+     * 访问该接口所需要的权限
+     */
+    private String authority;
 
     /**
      * 该权限的描述信息
      */
-    private String name;
+    private String description;
 
     /**
      * 该接口是否需要登录才能够访问
@@ -45,7 +50,7 @@ public class AuthorityWrapper {
     private boolean login;
 
     /**
-     * 该接口是否需要拥有该权限才能够访问
+     * 用于标识该接口是否需要拥有配置的角色或权限才能进行访问
      * 仅当 isLogin = true 时该属性有效
      */
     private boolean haveAuthority;

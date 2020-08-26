@@ -9,7 +9,6 @@ import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.galaxyt.normae.sms.enums.MessageType;
-import com.galaxyt.normae.sms.enums.SmsPlatform;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -103,7 +102,7 @@ public class AliyunService {
             CommonResponse response = client.getCommonResponse(request);
             if (response != null && response.getHttpStatus() == 200) {//验证码发送成功
                 //记录短信发送记录
-                this.messageLogService.addLog(phoneNumber, messageType, messageParam, SmsPlatform.ALIYUN);
+                this.messageLogService.addLog(phoneNumber, messageType, messageParam);
                 return Boolean.TRUE;
             }
 

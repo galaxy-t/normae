@@ -1,5 +1,6 @@
 package com.galaxyt.normae.security.consumer;
 
+import com.galaxyt.normae.core.util.json.GsonUtil;
 import com.galaxyt.normae.core.util.seurity.JWTUtil;
 import com.galaxyt.normae.security.core.AuthorityWrapper;
 import lombok.extern.slf4j.Slf4j;
@@ -28,13 +29,6 @@ public class AuthorityFilter implements GlobalFilter {
     @Value("${jwt.sign}")
     private String jwtSign;
 
-    //白名单
-    private static final String[] whiteList =
-            {
-                    "v2/api-docs"
-            };
-
-
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
@@ -43,14 +37,6 @@ public class AuthorityFilter implements GlobalFilter {
         Route route = exchange.getAttribute("org.springframework.cloud.gateway.support.ServerWebExchangeUtils.gatewayRoute");
         String clientId = route.getId();
         String url = exchange.getRequest().getPath().toString();
-
-        //若当前 url 包含白名单中的标识则直接放行
-        //TODO 生产环境需要将 白名单去掉 , 此处仅为了 swagger 能从网关访问
-        for (String whiteUrlMark : whiteList) {
-            if (url.contains(whiteUrlMark)) {
-                return chain.filter(exchange);
-            }
-        }
 
         //从缓存中拿到当前请求所对应的权限对象
         AuthorityWrapper authority = AuthorityRegistry.INSTANCE.get(clientId, methodType, url);
@@ -75,18 +61,35 @@ public class AuthorityFilter implements GlobalFilter {
 
                 //若该接口需要对应的权限则验证其权限
                 if (authority.isHaveAuthority()) {
-                    //若其没有拥有权限则直接响应 401
-                    String[] userAuthoritys = authority.getMark().split(",");
+
+
+                    //若其没有拥有角色或权限则直接响应 401
+                    String[] userRoleArr = authority.getRole().split(",");
+                    String[] userAuthorityArr = authority.getAuthority().split(",");
+
                     boolean isHaveAuthority = false;
-                    for (String userAuthority : userAuthoritys) {
-                        if (jwt.getAuthorities().contains(userAuthority)) {
+
+                    //首先判断其是否拥有该接口所需要的角色
+                    for (String userRole : userRoleArr) {
+                        if (jwt.getRole().contains(userRole)) {
                             isHaveAuthority = true;
                         }
                     }
-                    //若用户未拥有该接口所需要的任何一个权限则直接返回
+                    //若其没有拥有该接口所需要的角色那么再判断是否拥有该接口所需要的权限
+                    if (isHaveAuthority == false) {
+                        for (String userAuthority : userAuthorityArr) {
+                            if (jwt.getAuthority().contains(userAuthority)) {
+                                isHaveAuthority = true;
+                            }
+                        }
+                    }
+
+                    //若用户未拥有该接口所需要的任何一个角色或权限则直接返回
                     if (!isHaveAuthority) {
                         return this.response(exchange, HttpStatus.UNAUTHORIZED);
                     }
+
+
                 }
 
                 //此时认为已经拥有合法权限了 , 也能够正常获取到用户信息
@@ -97,6 +100,9 @@ public class AuthorityFilter implements GlobalFilter {
                     //将 userId 和 username 放入 header 中 , 传递到下级服务
                     httpHeaders.add(JWTUtil.USER_ID, jwt.getUserId());
                     httpHeaders.add(JWTUtil.USERNAME, jwt.getUsername());
+                    httpHeaders.add(JWTUtil.ROLE, GsonUtil.getJson(jwt.getRole()));
+                    httpHeaders.add(JWTUtil.AUTHORITY, GsonUtil.getJson(jwt.getAuthority()));
+
                 }).build();
 
                 return chain.filter(exchange);

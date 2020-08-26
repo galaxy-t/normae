@@ -65,14 +65,14 @@ public class RequestMappingProcessor {
                 AuthorityWrapper wrapper = new AuthorityWrapper();
                 wrapper.setUrl(url);
                 wrapper.setMethod(requestMethod);
-                wrapper.setMark(authority.mark());
-                wrapper.setName(authority.name());
+                wrapper.setRole(authority.role());
+                wrapper.setAuthority(authority.authority());
+                wrapper.setDescription(authority.description());
                 wrapper.setLogin(authority.isLogin());
                 wrapper.setHaveAuthority(authority.isHaveAuthority());
 
                 authoritys.add(wrapper);
                 log.debug(wrapper.toString());
-
             });
 
         }

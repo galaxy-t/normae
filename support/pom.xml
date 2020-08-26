@@ -17,6 +17,7 @@
         <module>uaa</module>
         <module>sms</module>
         <module>file</module>
+        <module>sms-api</module>
     </modules>
 
 

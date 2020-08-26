@@ -8,15 +8,15 @@ import com.galaxyt.normae.core.exception.GlobalExceptionCode;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ *
  * 短信发送类型
+ * 本平台全部的短信发送类型均需要维护在该枚举类中 , 包括但不限于短信验证码
  *
  * @author zhouqi
+ * @date 2020/8/24 17:49
  * @version v1.0.0
- * @date 2020/5/28 16:10
- * @Description Modification History:
- * Date                 Author          Version          Description
- * ---------------------------------------------------------------------------------*
- * 2020/5/28 16:10     zhouqi          v1.0.0           Created
+ * @Description
+ *
  */
 @Slf4j
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)

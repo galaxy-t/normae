@@ -29,7 +29,7 @@
 
         <dependency>
             <groupId>com.galaxyt.normae</groupId>
-            <artifactId>api-sms</artifactId>
+            <artifactId>sms-api</artifactId>
             <version>1.0.0</version>
         </dependency>
 

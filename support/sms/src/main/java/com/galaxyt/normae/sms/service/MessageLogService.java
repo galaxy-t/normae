@@ -2,8 +2,7 @@ package com.galaxyt.normae.sms.service;
 
 import com.galaxyt.normae.sms.dao.MessageLogDao;
 import com.galaxyt.normae.sms.enums.MessageType;
-import com.galaxyt.normae.sms.enums.SmsPlatform;
-import com.galaxyt.normae.sms.pojo.po.MessageLog;
+import com.galaxyt.normae.sms.pojo.po.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,17 +36,15 @@ public class MessageLogService {
      *
      * @param phoneNumber     电话号码
      * @param messageType 短信类型
-     * @param message         发送的内容
-     * @param smsPlatform     短信服务商
+     * @param content         发送的内容
      */
     @Transactional
-    public void addLog(String phoneNumber, MessageType messageType, String message, SmsPlatform smsPlatform) {
+    public void addLog(String phoneNumber, MessageType messageType, String content) {
 
-        MessageLog messageLog = new MessageLog();
+        Message messageLog = new Message();
 
         messageLog.setPhoneNumber(phoneNumber);
-        messageLog.setMessage(message);
-        messageLog.setSmsPlatform(smsPlatform);
+        messageLog.setContent(content);
         messageLog.setMessageType(messageType);
         messageLog.setCreateTime(LocalDateTime.now());
 
